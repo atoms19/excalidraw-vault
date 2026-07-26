@@ -1,0 +1,731 @@
+/* CSS styles for Excalidraw Vault & Auto-Save Extension */
+
+/* Import a premium font for the sidebar UI */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* Theme CSS Variables */
+.excalidraw-vault-sidebar {
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --sidebar-width: 380px;
+  
+  /* Light theme values */
+  --bg-sidebar: rgba(255, 255, 255, 0.85);
+  --bg-card: #ffffff;
+  --bg-input: #f4f4f6;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --text-main: #1d1d1f;
+  --text-muted: #86868b;
+  --primary-color: #7065f0;
+  --primary-hover: #5c52d8;
+  --primary-light: rgba(112, 101, 240, 0.08);
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --hover-bg: rgba(0, 0, 0, 0.04);
+  --danger-color: #ff453a;
+  --danger-hover: #e03b30;
+  --danger-light: rgba(255, 69, 58, 0.08);
+  --success-color: #34c759;
+}
+
+/* Dark theme overrides */
+.excalidraw-vault-sidebar.theme--dark {
+  --bg-sidebar: rgba(20, 20, 25, 0.85);
+  --bg-card: #1c1c21;
+  --bg-input: #2a2a30;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-main: #f5f5f7;
+  --text-muted: #8e8e93;
+  --primary-color: #8e85f0;
+  --primary-hover: #a39cf4;
+  --primary-light: rgba(142, 133, 240, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-hover: rgba(0, 0, 0, 0.45);
+  --hover-bg: rgba(255, 255, 255, 0.06);
+  --danger-color: #ff453a;
+  --danger-hover: #ff6b64;
+  --danger-light: rgba(255, 69, 58, 0.15);
+  --success-color: #30d158;
+}
+
+/* Floating Trigger Button */
+.excalidraw-vault-trigger {
+  position: fixed;
+  right: 15px;
+  bottom: 64px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ececf4;
+  color: #1b1b1f;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  cursor: pointer;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.excalidraw-vault-trigger:hover {
+  background: #e2e2ec;
+  transform: scale(1.02);
+}
+
+.excalidraw-vault-trigger:active {
+  transform: scale(0.96);
+}
+
+/* Dark mode overrides for trigger */
+.excalidraw-vault-trigger.theme--dark {
+  background: #2a2a35;
+  color: #ececec;
+  border: 1px solid #3c3c45;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.excalidraw-vault-trigger.theme--dark:hover {
+  background: #3c3c4c;
+}
+
+/* Pulse animation for the trigger button when auto-saving */
+.excalidraw-vault-trigger.saving::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  border: 2px solid var(--primary-color);
+  animation: pulse 1s ease-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+/* Main Sidebar Container */
+.excalidraw-vault-sidebar {
+  position: fixed;
+  right: calc(-1 * var(--sidebar-width));
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid var(--border-color);
+  box-shadow: -10px 0 30px var(--shadow-color);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-main);
+  box-sizing: border-box;
+}
+
+.excalidraw-vault-sidebar.open {
+  right: 0;
+}
+
+/* Sidebar Header */
+.excalidraw-vault-header {
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.excalidraw-vault-title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.excalidraw-vault-title-section h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  background: linear-gradient(90deg, var(--primary-color), #8e85f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.excalidraw-vault-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.excalidraw-vault-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--success-color);
+  box-shadow: 0 0 8px var(--success-color);
+}
+
+.excalidraw-vault-status-dot.saving {
+  background-color: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
+  animation: pulse-dot 1s infinite alternate;
+}
+
+@keyframes pulse-dot {
+  0% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+
+.excalidraw-vault-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.excalidraw-vault-close-btn:hover {
+  background: var(--hover-bg);
+  color: var(--text-main);
+}
+
+/* Primary actions */
+.excalidraw-vault-actions {
+  padding: 16px 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.excalidraw-vault-new-btn {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(112, 101, 240, 0.15);
+}
+
+.excalidraw-vault-new-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(112, 101, 240, 0.25);
+}
+
+.excalidraw-vault-new-btn:active {
+  transform: translateY(0);
+}
+
+.excalidraw-vault-tools-btn {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  background: var(--bg-input);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.excalidraw-vault-tools-btn:hover {
+  background: var(--hover-bg);
+  transform: translateY(-1px);
+}
+
+.excalidraw-vault-tools-btn:active {
+  transform: translateY(0);
+}
+
+/* Search and Filters Section */
+.excalidraw-vault-search-box {
+  padding: 0 24px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.excalidraw-vault-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.excalidraw-vault-search-input {
+  width: 100%;
+  padding: 10px 12px 10px 36px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-input);
+  color: var(--text-main);
+  font-size: 14px;
+  font-family: var(--font-family);
+  outline: none;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.excalidraw-vault-search-input:focus {
+  border-color: var(--primary-color);
+  background-color: var(--bg-card);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.excalidraw-vault-search-icon {
+  position: absolute;
+  left: 12px;
+  color: var(--text-muted);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+/* Horizontal scrolling tag container */
+.excalidraw-vault-tags {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.excalidraw-vault-tags::-webkit-scrollbar {
+  display: none; /* Safari/Chrome */
+}
+
+.excalidraw-vault-tag {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: var(--bg-input);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.excalidraw-vault-tag:hover {
+  color: var(--text-main);
+  background-color: var(--hover-bg);
+}
+
+.excalidraw-vault-tag.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Sketches List */
+.excalidraw-vault-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scrollbar-gutter: stable;
+}
+
+/* Smooth scrollbar styling */
+.excalidraw-vault-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.excalidraw-vault-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.excalidraw-vault-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.excalidraw-vault-list::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Empty State */
+.excalidraw-vault-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 200px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.excalidraw-vault-empty svg {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+/* Sketch Card */
+.excalidraw-vault-card {
+  display: flex;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 6px var(--shadow-color);
+  box-sizing: border-box;
+}
+
+.excalidraw-vault-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px var(--shadow-hover);
+  border-color: var(--primary-color);
+}
+
+.excalidraw-vault-card.active-drawing {
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 4px 12px var(--primary-light);
+  background-color: var(--primary-light);
+}
+
+/* Thumbnail Container */
+.excalidraw-vault-thumb {
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fbfbfb;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.excalidraw-vault-sidebar.theme--dark .excalidraw-vault-thumb {
+  background: #121214;
+}
+
+.excalidraw-vault-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+/* Geometric placeholder if thumbnail is missing */
+.excalidraw-vault-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--bg-input) 0%, var(--border-color) 100%);
+  color: var(--text-muted);
+}
+
+/* Restore overlay on thumbnail hover */
+.excalidraw-vault-thumb-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(112, 101, 240, 0.85);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: 8px;
+}
+
+.excalidraw-vault-card:hover .excalidraw-vault-thumb-overlay {
+  opacity: 1;
+}
+
+/* Card details */
+.excalidraw-vault-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  min-width: 0; /* Ensures truncation works */
+}
+
+.excalidraw-vault-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Title Input (Double-click to edit) */
+.excalidraw-vault-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+  padding: 2px 0;
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-family);
+  border-radius: 4px;
+}
+
+.excalidraw-vault-card-title:focus {
+  border-color: var(--primary-color);
+  background: var(--bg-input);
+  padding: 2px 6px;
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.excalidraw-vault-card-time {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.excalidraw-vault-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.excalidraw-vault-card-tag {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--bg-input);
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Card Actions (Visible on hover) */
+.excalidraw-vault-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.2s ease;
+}
+
+.excalidraw-vault-card:hover .excalidraw-vault-card-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.excalidraw-vault-btn-icon {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.excalidraw-vault-btn-icon:hover {
+  background: var(--hover-bg);
+  color: var(--text-main);
+}
+
+.excalidraw-vault-btn-icon.delete-btn:hover {
+  background: var(--danger-light);
+  color: var(--danger-color);
+}
+
+.excalidraw-vault-btn-icon.active {
+  color: var(--primary-color);
+}
+
+/* Restore overlay for loading state during restore */
+.excalidraw-vault-restore-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-sidebar);
+  z-index: 1000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.excalidraw-vault-restore-transition.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.excalidraw-vault-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Modal for managing tags or delete confirmation */
+.excalidraw-vault-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1000001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.excalidraw-vault-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.excalidraw-vault-modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 24px;
+  width: 320px;
+  max-width: 90%;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  transform: scale(0.9);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.excalidraw-vault-modal-backdrop.active .excalidraw-vault-modal {
+  transform: scale(1);
+}
+
+.excalidraw-vault-modal-title {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.excalidraw-vault-modal-body {
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.excalidraw-vault-modal-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-input);
+  color: var(--text-main);
+  outline: none;
+  font-family: var(--font-family);
+  margin-top: 8px;
+  box-sizing: border-box;
+}
+
+.excalidraw-vault-modal-input:focus {
+  border-color: var(--primary-color);
+}
+
+.excalidraw-vault-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.excalidraw-vault-modal-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: var(--font-family);
+  transition: all 0.15s;
+}
+
+.excalidraw-vault-modal-btn.cancel,
+.excalidraw-vault-modal-btn.secondary {
+  background: var(--bg-input);
+  color: var(--text-main);
+}
+
+.excalidraw-vault-modal-btn.cancel:hover,
+.excalidraw-vault-modal-btn.secondary:hover {
+  background: var(--hover-bg);
+}
+
+.excalidraw-vault-modal-btn.confirm {
+  background: var(--primary-color);
+  color: white;
+}
+
+.excalidraw-vault-modal-btn.confirm:hover {
+  background: var(--primary-hover);
+}
+
+.excalidraw-vault-modal-btn.danger {
+  background: var(--danger-color);
+  color: white;
+}
+
+.excalidraw-vault-modal-btn.danger:hover {
+  background: var(--danger-hover);
+}

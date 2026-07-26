@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7065f0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5c52d8;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Main rounded background -->
+  <rect x="12" y="12" width="104" height="104" rx="26" fill="url(#grad)" filter="url(#shadow)" />
+  
+  <!-- Vault / Drawer lines & Sketch icon representation -->
+  <path d="M44 48H84" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+  <path d="M44 64H84" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+  <path d="M44 80H68" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+  
+  <!-- Folder/Vault icon accent -->
+  <rect x="76" y="74" width="12" height="12" rx="3" fill="#ffffff" />
+  
+  <!-- Sleek corner decorative pencil stroke -->
+  <path d="M84 32 L96 44 L90 50 L78 38 Z" fill="#ffffff" opacity="0.8" />
+</svg>
