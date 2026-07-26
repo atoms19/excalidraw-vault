@@ -1,3 +1,6 @@
+
+![](assets/logo.png)
+
 # Excalidraw Vault & Auto-Save Browser Extension
 
 Excalidraw Vault is a clean, lightweight browser extension that automatically backs up your Excalidraw drawings to `chrome.storage.local` in the background. It provides a native-feeling library panel directly within Excalidraw's user interface, allowing you to browse, search, rename, tag, export, and switch drawings with a single click.
