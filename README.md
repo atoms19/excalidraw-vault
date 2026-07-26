@@ -29,6 +29,7 @@ Follow these quick steps to load the extension in your browser:
 ### Chrome / Edge / Brave / Opera (Chromium-based)
 
 1. Open your browser and navigate to the Extensions page:
+![](assets/icon-square.png)
    - Chrome: `chrome://extensions/`
    - Edge: `edge://extensions/`
 2. Enable **Developer mode** (typically a toggle in the top-right corner).
@@ -49,11 +50,20 @@ Follow these quick steps to load the extension in your browser:
 
 ## Code Architecture
 
-- [manifest.json](file:///home/atoms/programming/web/excalidraw-storage/manifest.json): Configuration registering content scripts, styles, background worker, and storage permissions.
+- [manifest.json](file:///home/atoms/programming/web/excalidraw-storage/manifest.json): Configuration registering script loaders, custom favicons, background workers, and storage permissions.
 - [background.js](file:///home/atoms/programming/web/excalidraw-storage/background.js): Service worker initializing the local DB structures.
-- [content.js](file:///home/atoms/programming/web/excalidraw-storage/content.js): The core driver. Monitors canvas, takes debounced screenshots, injects the library sidebar, manages transitions, and updates drawings.
-- [content.css](file:///home/atoms/programming/web/excalidraw-storage/content.css): CSS variables supporting dynamic dark mode matching, glassmorphism, pulse indicators, and responsive card layouts.
-- [icon.svg](file:///home/atoms/programming/web/excalidraw-storage/icon.svg): Vector logo for the browser extension.
+- [content.css](file:///home/atoms/programming/web/excalidraw-storage/content.css): CSS variables supporting dynamic dark mode matching, pulse indicators, responsive cards, and dialogue layouts.
+- **assets/**: Favicon and logo assets used by browser extension frames:
+  - `favicon-16x16.png`, `favicon-32x32.png`: Main browser toolbar favicon sizes.
+  - `android-chrome-192x192.png`: Extension store listings and installer logo.
+  - `logo.png`: Main splash header banner asset.
+  - `icon-square.png`: Squares and screenshot banners.
+- **src/**: Modularized Javascript codebase:
+  - [state.js](file:///home/atoms/programming/web/excalidraw-storage/src/state.js): Shared state variables and common namespaces.
+  - [utils.js](file:///home/atoms/programming/web/excalidraw-storage/src/utils.js): Timestamp formatting and relative parser helpers.
+  - [storage.js](file:///home/atoms/programming/web/excalidraw-storage/src/storage.js): Database read/writes, polling loops, idle state managers, and canvas snapshots.
+  - [ui.js](file:///home/atoms/programming/web/excalidraw-storage/src/ui.js): Sidebar toggles, rendering methods, tag filters, tools panel, and modal overlays.
+  - [main.js](file:///home/atoms/programming/web/excalidraw-storage/src/main.js): Observers and initial startup bootloaders.
 
 ---
 

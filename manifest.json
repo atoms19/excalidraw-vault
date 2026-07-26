@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Excalidraw Vault & Auto-Save",
   "version": "1.0.0",
-  "description": "Automatically saves your Excalidraw drawings in the background. Provides a native sidebar library to manage, search, and restore sketches.",
+  "description": "Automatically backs up Excalidraw drawings in the background. Provides a sidebar library to browse, search, and restore sketches.",
   "permissions": [
     "storage",
     "unlimitedStorage"
@@ -11,11 +11,19 @@
     "https://excalidraw.com/*"
   ],
   "action": {
-    "default_icon": "icon.svg",
+    "default_icon": {
+      "16": "assets/favicon-16x16.png",
+      "32": "assets/favicon-32x32.png",
+      "48": "assets/android-chrome-192x192.png",
+      "128": "assets/android-chrome-192x192.png"
+    },
     "default_title": "Excalidraw Vault"
   },
   "icons": {
-    "128": "icon.svg"
+    "16": "assets/favicon-16x16.png",
+    "32": "assets/favicon-32x32.png",
+    "48": "assets/android-chrome-192x192.png",
+    "128": "assets/android-chrome-192x192.png"
   },
   "background": {
     "service_worker": "background.js"
