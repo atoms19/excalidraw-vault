@@ -29,7 +29,6 @@ Follow these quick steps to load the extension in your browser:
 ### Chrome / Edge / Brave / Opera (Chromium-based)
 
 1. Open your browser and navigate to the Extensions page:
-![](assets/icon-square.png)
    - Chrome: `chrome://extensions/`
    - Edge: `edge://extensions/`
 2. Enable **Developer mode** (typically a toggle in the top-right corner).
